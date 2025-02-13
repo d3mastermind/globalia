@@ -100,7 +100,7 @@ class _FilterBottomSheetState extends State<FilterBottomSheet> {
                             }
                           });
                         },
-                        controlAffinity: ListTileControlAffinity.leading,
+                        controlAffinity: ListTileControlAffinity.trailing,
                         dense: true,
                       );
                     }).toList(),
@@ -130,7 +130,7 @@ class _FilterBottomSheetState extends State<FilterBottomSheet> {
                             }
                           });
                         },
-                        controlAffinity: ListTileControlAffinity.leading,
+                        controlAffinity: ListTileControlAffinity.trailing,
                         dense: true,
                       );
                     }).toList(),
@@ -154,7 +154,8 @@ class _FilterBottomSheetState extends State<FilterBottomSheet> {
                       },
                       style: TextButton.styleFrom(
                         backgroundColor: Colors.transparent,
-                        side: const BorderSide(color: Colors.white, width: 1),
+                        side: BorderSide(
+                            color: Theme.of(context).highlightColor, width: 1),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(8),
                         ),
@@ -162,9 +163,7 @@ class _FilterBottomSheetState extends State<FilterBottomSheet> {
                       ),
                       child: Text(
                         'Reset',
-                        style: theme.textTheme.bodyMedium?.copyWith(
-                          color: Colors.white,
-                        ),
+                        style: Theme.of(context).textTheme.bodyMedium,
                       ),
                     ),
                   ),

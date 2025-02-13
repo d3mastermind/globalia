@@ -162,16 +162,6 @@ class AppTheme {
           return const Color.fromRGBO(208, 213, 221, 1);
         }),
       ),
-
-      // Bottom Sheet Theme
-      bottomSheetTheme: const BottomSheetThemeData(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(32),
-            topRight: Radius.circular(32),
-          ),
-        ),
-      ),
     );
   }
 }
