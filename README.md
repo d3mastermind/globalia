@@ -2,7 +2,11 @@
 
 A Flutter mobile application that allows users to view information about different countries, including details like states, country codes, flags, and capitals. The app features both light and dark theme modes and is built using Flutter/Dart.
 
-![App Demo](Media/Screen_Recording.mp4)
+
+![App Demo](https://github.com/d3mastermind/globalia/blob/main/Media/Screen_Recording.gif)
+
+[🎥 Watch the full demo](https://github.com/d3mastermind/globalia/blob/4178ac3cd95719c5e1911a4788776f31bcb5a331/Media/Screen_Recording.mp4)
+
 
 ## Features
 
