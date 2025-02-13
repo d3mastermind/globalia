@@ -124,10 +124,19 @@ class CountryListScreenState extends State<CountryListScreen> {
     List<Country> filteredCountries = getFilteredCountries();
     Map<String, List<Country>> groupedCountries = {};
 
+    // First, group countries by their first letter
     for (var country in filteredCountries) {
       String letter = country.name[0].toUpperCase();
       groupedCountries.putIfAbsent(letter, () => []).add(country);
     }
+
+    // Sort countries within each letter group
+    groupedCountries.forEach((letter, countries) {
+      countries.sort((a, b) => a.name.compareTo(b.name));
+    });
+
+    // Get sorted letters
+    List<String> sortedLetters = groupedCountries.keys.toList()..sort();
 
     return Column(
       children: [
@@ -152,16 +161,19 @@ class CountryListScreenState extends State<CountryListScreen> {
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
-              Container(
-                width: 100,
-                child: Row(
-                  children: [
-                    Text("Filter"),
-                    IconButton(
-                      icon: const Icon(Icons.filter_list),
-                      onPressed: _showFilterDialog,
-                    ),
-                  ],
+              GestureDetector(
+                onTap: _showFilterDialog,
+                child: SizedBox(
+                  width: 100,
+                  child: Row(
+                    children: [
+                      Text("Filter"),
+                      IconButton(
+                        icon: const Icon(Icons.filter_alt_outlined),
+                        onPressed: _showFilterDialog,
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ],
@@ -197,8 +209,10 @@ class CountryListScreenState extends State<CountryListScreen> {
               ? const Center(
                   child: Text('No countries found'),
                 )
-              : ListView(
-                  children: groupedCountries.keys.map((letter) {
+              : ListView.builder(
+                  itemCount: sortedLetters.length,
+                  itemBuilder: (context, index) {
+                    String letter = sortedLetters[index];
                     return Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -213,7 +227,7 @@ class CountryListScreenState extends State<CountryListScreen> {
                             .map((country) => CountryTile(country: country)),
                       ],
                     );
-                  }).toList(),
+                  },
                 ),
         ),
       ],

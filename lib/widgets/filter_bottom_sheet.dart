@@ -27,6 +27,9 @@ class _FilterBottomSheetState extends State<FilterBottomSheet> {
   bool _isContinentExpanded = false;
   bool _isTimeZoneExpanded = false;
 
+  bool get _hasSelectedFilters =>
+      _selectedContinents.isNotEmpty || _selectedTimeZones.isNotEmpty;
+
   @override
   void initState() {
     super.initState();
@@ -136,48 +139,63 @@ class _FilterBottomSheetState extends State<FilterBottomSheet> {
               ),
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.all(16),
-            child: Row(
-              children: [
-                Expanded(
-                  child: OutlinedButton(
-                    onPressed: () {
-                      setState(() {
-                        _selectedContinents.clear();
-                        _selectedTimeZones.clear();
-                      });
-                    },
-                    child: Text(
-                      'Reset',
-                      style: theme.textTheme.bodyMedium,
-                    ),
-                  ),
-                ),
-                const SizedBox(width: 16),
-                Expanded(
-                  child: FilledButton(
-                    onPressed: () {
-                      widget.onApplyFilters(
-                        _selectedContinents,
-                        _selectedTimeZones,
-                      );
-                      Navigator.pop(context);
-                    },
-                    style: ButtonStyle(
-                        backgroundColor: WidgetStatePropertyAll(
-                            Theme.of(context).primaryColor)),
-                    child: Text(
-                      'Show results',
-                      style: theme.textTheme.bodyMedium?.copyWith(
-                        color: Colors.white,
+          if (_hasSelectedFilters)
+            Padding(
+              padding: const EdgeInsets.all(16),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: TextButton(
+                      onPressed: () {
+                        setState(() {
+                          _selectedContinents.clear();
+                          _selectedTimeZones.clear();
+                        });
+                      },
+                      style: TextButton.styleFrom(
+                        backgroundColor: Colors.transparent,
+                        side: const BorderSide(color: Colors.white, width: 1),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        padding: const EdgeInsets.symmetric(vertical: 12),
+                      ),
+                      child: Text(
+                        'Reset',
+                        style: theme.textTheme.bodyMedium?.copyWith(
+                          color: Colors.white,
+                        ),
                       ),
                     ),
                   ),
-                ),
-              ],
+                  const SizedBox(width: 16),
+                  Expanded(
+                    child: TextButton(
+                      onPressed: () {
+                        widget.onApplyFilters(
+                          _selectedContinents,
+                          _selectedTimeZones,
+                        );
+                        Navigator.pop(context);
+                      },
+                      style: TextButton.styleFrom(
+                        backgroundColor: const Color(0xFFFF6C00),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        padding: const EdgeInsets.symmetric(vertical: 12),
+                      ),
+                      child: Text(
+                        'Show results',
+                        style: theme.textTheme.bodyMedium?.copyWith(
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
             ),
-          ),
         ],
       ),
     );
